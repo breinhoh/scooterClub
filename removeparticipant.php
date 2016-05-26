@@ -12,32 +12,33 @@ if(!$mysqli || $mysqli->connect_errno){
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <body>
-
+	
 <div>
 	<form method="post" action="main.php">
 		<input type="submit" value="Home">
 	</form>
 </div>
 
-<div>
-	<form method="post" action="sfilter.php">
-		<input type="submit" value="Back">
-	</form>
-</div>
-
 <?php
-if(!($stmt = $mysqli->prepare("INSERT INTO scooter( color, year, model_id, member_id)VALUES(?, ?, ?, ?)"))){
+if(!($stmt = $mysqli->prepare("DELETE FROM member_ride WHERE ride_id=? AND member_id=?"))){
 	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }
-if(!($stmt->bind_param("siii",$_POST['Color'],$_POST['Year'],$_POST['Model'],$_POST['MemName']))){
+if(!($stmt->bind_param("ii",$_POST['Ride'],$_POST['memName']))){
 	echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
 }
 if(!$stmt->execute()){
 	echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
 } else {
-	echo "Added " . $stmt->affected_rows . " new scooter.";
+	echo "Removed " . $stmt->affected_rows . " member from the ride.";
 }
 ?>
+
+<div>
+	<form method="post" action="rfilter.php">
+		<input type="hidden" name="Ride" value="<?php echo $_POST['Ride']?>"/>
+		<input type="submit" value="Back">
+	</form>
+</div>
 
 </body>
 </html>

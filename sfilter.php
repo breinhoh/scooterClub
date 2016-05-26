@@ -49,6 +49,58 @@ $stmt->close();
 	</table>
 </div>
 
+<div>
+	<form method="post" action="addscooter.php"> 
+
+		<fieldset>
+			<legend>Add Scooter</legend>
+			<p>Color: <input type="text" name="Color" /></p>
+			<p>Year: <input type="number" name="Year" /></p>
+			<label>Model:</label>
+			<select name="Model">
+					<?php
+					if(!($stmt = $mysqli->prepare("SELECT id, model_name FROM model"))){
+						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+					}
+
+					if(!$stmt->execute()){
+						echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+					}
+					if(!$stmt->bind_result($id, $model)){
+						echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+					}
+					while($stmt->fetch()){
+					 echo '<option value=" '. $id . ' "> ' . $model . '</option>\n';
+					}
+					$stmt->close();
+					?>
+				</select>
+				<br>
+				<br>
+				<label>Owner:</label>
+				<select name="MemName">
+					<?php
+					if(!($stmt = $mysqli->prepare("SELECT id, fname, lname FROM member"))){
+						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+					}
+
+					if(!$stmt->execute()){
+						echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+					}
+					if(!$stmt->bind_result($mid, $fname, $lname)){
+						echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+					}
+					while($stmt->fetch()){
+					 echo '<option value=" '. $mid . ' "> ' . $fname . ' ' . $lname . '</option>\n';
+					}
+					$stmt->close();
+					?>
+				</select>
+			<p><input type="submit" /></p>
+		</fieldset>
+	</form>
+</div>
+
 
 </body>
 </html>

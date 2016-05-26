@@ -13,6 +13,7 @@ if($mysqli->connect_errno){
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <body>
+<h1>Scoot Town Scooter Club</h1>
 <div>
 	<table>
 		<tr>
@@ -46,27 +47,21 @@ $stmt->close();
 </div>
 
 <div>
+	<form method="post" action="msfilter.php">
+		<fieldset>
+			<legend>Search For Member By Name</legend>
+			<p>First Name:<input type="text" name="fnames"></p>
+			<p>Last Name:<input type="text" name="lnames"></p>
+			<input type="submit" value="Search"/>
+		</fieldset>
+	</form>
+</div>
+
+<div>
 	<form method="post" action="mfilter.php">
 		<fieldset>
-			<legend>Filter By Member</legend>
-				<select name="Member">
-					<?php
-					if(!($stmt = $mysqli->prepare("SELECT id, fname, lname FROM member"))){
-						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
-					}
-
-					if(!$stmt->execute()){
-						echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-					}
-					if(!$stmt->bind_result($mid, $fname, $lname)){
-						echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-					}
-					while($stmt->fetch()){
-					 echo '<option value=" '. $mid . ' "> ' . $fname . ' ' . $lname . '</option>\n';
-					}
-					$stmt->close();
-					?>
-				</select>
+			<legend>Filter Members By Date Joined</legend>
+				<input type="date" name="jdate">
 				<input type="submit" value="Run Filter" />
 		</fieldset>
 	</form>
@@ -124,102 +119,6 @@ $stmt->close();
 			<p>First Name: <input type="text" name="FirstName" /></p>
 			<p>Last Name: <input type="text" name="LastName" /></p>
 			<p>Date Joined: <input type="date" name="Joined" /></p>
-			<p><input type="submit" /></p>
-		</fieldset>
-	</form>
-</div>
-
-<div>
-	<form method="post" action="addscooter.php"> 
-
-		<fieldset>
-			<legend>Add Scooter</legend>
-			<p>Color: <input type="text" name="Color" /></p>
-			<p>Year: <input type="number" name="Year" /></p>
-			<label>Model:</label>
-			<select name="Model">
-					<?php
-					if(!($stmt = $mysqli->prepare("SELECT id, model_name FROM model"))){
-						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
-					}
-
-					if(!$stmt->execute()){
-						echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-					}
-					if(!$stmt->bind_result($id, $model)){
-						echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-					}
-					while($stmt->fetch()){
-					 echo '<option value=" '. $id . ' "> ' . $model . '</option>\n';
-					}
-					$stmt->close();
-					?>
-				</select>
-				<br>
-				<br>
-				<label>Owner:</label>
-				<select name="MemName">
-					<?php
-					if(!($stmt = $mysqli->prepare("SELECT id, fname, lname FROM member"))){
-						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
-					}
-
-					if(!$stmt->execute()){
-						echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-					}
-					if(!$stmt->bind_result($mid, $fname, $lname)){
-						echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-					}
-					while($stmt->fetch()){
-					 echo '<option value=" '. $mid . ' "> ' . $fname . ' ' . $lname . '</option>\n';
-					}
-					$stmt->close();
-					?>
-				</select>
-			<p><input type="submit" /></p>
-		</fieldset>
-	</form>
-</div>
-
-<div>
-	<form method="post" action="addmake.php"> 
-		<fieldset>
-			<legend>Add Make</legend>
-			<p>Name: <input type="text" name="Name" /></p>
-			<p>City: <input type="text" name="City" /></p>
-			<p>Country: <input type="text" name="Country"></p>
-			<p><input type="submit" /></p>
-		</fieldset>
-	</form>
-</div>
-
-<div>
-	<form method="post" action="addmodel.php"> 
-
-		<fieldset>
-			<legend>Add Model</legend>
-			<p>Name: <input type="text" name="Name" /></p>
-			<p>Displacement: <input type="number" name="Displacement" /></p>
-			<p>Top Speed: <input type="number" name="TopSpeed"></p>
-			<label>Make:</label>
-			<select name="Make">
-				<?php
-				if(!($stmt = $mysqli->prepare("SELECT id, make_name FROM make"))){
-					echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
-				}
-
-				if(!$stmt->execute()){
-					echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-				}
-				if(!$stmt->bind_result($id, $make)){
-					echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
-				}
-				while($stmt->fetch()){
-				 echo '<option value=" '. $id . ' "> ' . $make . '</option>\n';
-				}
-				$stmt->close();
-				?>
-			</select>
 			<p><input type="submit" /></p>
 		</fieldset>
 	</form>

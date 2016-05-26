@@ -25,7 +25,6 @@ $mysqli2 = new mysqli("oniddb.cws.oregonstate.edu","breinhoh-db","s6eiV1SjFCoydV
 		<tr>
 			<td>Make</td>
 			<td>Model</td>
-			<td></td>
 		</tr>
 <?php
 if(!($stmt = $mysqli->prepare("SELECT make_name, id FROM make ORDER BY make_name"))){
@@ -39,19 +38,19 @@ if(!$stmt->bind_result($make, $id)){
 	echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
 }
 while($stmt->fetch()){
- echo "<tr>\n<td>" . $make . "</td>\n<td>" . "--------------------" . "</td>\n<td>\n<form method='post' action='removemake.php'>\n<input type='hidden' name='Scoot' value=" . $id . "/>\n<input type='submit' value='Remove'>\n</form>\n</td>\n</tr>";
- if(!($stmt2 = $mysqli2->prepare("SELECT model_name, id FROM model WHERE make_id=$id ORDER BY model_name"))){
+ echo "<tr>\n<td>" . $make . "</td>\n<td>" . "--------------------" . "</td>\n</tr>";
+ if(!($stmt2 = $mysqli2->prepare("SELECT model_name FROM model WHERE make_id=$id ORDER BY model_name"))){
 	echo "Prepare failed: "  . $stmt2->errno . " " . $stmt2->error;
 }
 
 if(!$stmt2->execute()){
 	echo "Execute failed: "  . $mysqli2->connect_errno . " " . $mysqli2->connect_error;
 }
-if(!$stmt2->bind_result($model, $idm)){
+if(!$stmt2->bind_result($model)){
 	echo "Bind failed: "  . $mysqli2->connect_errno . " " . $mysqli2->connect_error;
 }
 while($stmt2->fetch()){
- echo "<tr>\n<td>" . " " . "</td>\n<td>" . $model . "</td>\n<td>\n<form method='post' action='removemodel.php'>\n<input type='hidden' name='Model' value=" . $idm . "/>\n<input type='submit' value='Remove'>\n</form>\n</td>\n</tr>";
+ echo "<tr>\n<td>" . " " . "</td>\n<td>" . $model . "</td></tr>";
 }
 }
 $stmt->close();
@@ -59,6 +58,49 @@ $stmt->close();
 	</table>
 </div>
 
+<div>
+	<form method="post" action="addmake.php"> 
+		<fieldset>
+			<legend>Add Make</legend>
+			<p>Name: <input type="text" name="Name" /></p>
+			<p>City: <input type="text" name="City" /></p>
+			<p>Country: <input type="text" name="Country"></p>
+			<p><input type="submit" /></p>
+		</fieldset>
+	</form>
+</div>
+
+<div>
+	<form method="post" action="addmodel.php"> 
+
+		<fieldset>
+			<legend>Add Model</legend>
+			<p>Name: <input type="text" name="Name" /></p>
+			<p>Displacement: <input type="number" name="Displacement" /></p>
+			<p>Top Speed: <input type="number" name="TopSpeed"></p>
+			<label>Make:</label>
+			<select name="Make">
+				<?php
+				if(!($stmt = $mysqli->prepare("SELECT id, make_name FROM make"))){
+					echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+				}
+
+				if(!$stmt->execute()){
+					echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+				}
+				if(!$stmt->bind_result($id, $make)){
+					echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+				}
+				while($stmt->fetch()){
+				 echo '<option value=" '. $id . ' "> ' . $make . '</option>\n';
+				}
+				$stmt->close();
+				?>
+			</select>
+			<p><input type="submit" /></p>
+		</fieldset>
+	</form>
+</div>
 
 </body>
 </html>

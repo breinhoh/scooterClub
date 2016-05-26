@@ -19,25 +19,25 @@ if(!$mysqli || $mysqli->connect_errno){
 	</form>
 </div>
 
-<div>
-	<form method="post" action="sfilter.php">
-		<input type="submit" value="Back">
-	</form>
-</div>
-
 <?php
-if(!($stmt = $mysqli->prepare("INSERT INTO scooter( color, year, model_id, member_id)VALUES(?, ?, ?, ?)"))){
+if(!($stmt = $mysqli->prepare("DELETE FROM scooter WHERE id=?"))){
 	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }
-if(!($stmt->bind_param("siii",$_POST['Color'],$_POST['Year'],$_POST['Model'],$_POST['MemName']))){
+if(!($stmt->bind_param("i",$_POST['Scoot']))){
 	echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
 }
 if(!$stmt->execute()){
 	echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
 } else {
-	echo "Added " . $stmt->affected_rows . " new scooter.";
+	echo "Removed " . $stmt->affected_rows . " scooter.";
 }
 ?>
+
+<div>
+	<form method="post" action="mfilter.php">
+		<input type="submit" value="Back">
+	</form>
+</div>
 
 </body>
 </html>
