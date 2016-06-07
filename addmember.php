@@ -33,11 +33,5 @@ if(!$stmt->execute()){
 }
 ?>
 
-<div>
-	<form method="post" action="main.php">
-		<input type="submit" value="Home">
-	</form>
-</div>
-
 </body>
 </html>

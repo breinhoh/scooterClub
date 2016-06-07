@@ -34,8 +34,8 @@ if(!$stmt->execute()){
 ?>
 
 <div>
-	<form method="post" action="main.php">
-		<input type="submit" value="Home">
+	<form method="post" action="mmfilter.php">
+		<input type="submit" value="Back">
 	</form>
 </div>
 

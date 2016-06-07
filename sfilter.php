@@ -96,11 +96,23 @@ $stmt->close();
 					$stmt->close();
 					?>
 				</select>
+					
+				<select name="Make" id="make" class="update">
+					<option value="">Select one</option>
+				</select>
+
+				<select name="Model" id="model" class="update" disabled="disabled">
+					<option value="">----</option>
+				</select>
+
 			<p><input type="submit" /></p>
 		</fieldset>
 	</form>
 </div>
 
+
+<script src="/js/jquery-1.12.4.min.js" type="text/javascript"></script>
+<script src="/js/makes.js" type="text/javascript"></script>
 
 </body>
 </html>

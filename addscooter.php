@@ -19,11 +19,6 @@ if(!$mysqli || $mysqli->connect_errno){
 	</form>
 </div>
 
-<div>
-	<form method="post" action="sfilter.php">
-		<input type="submit" value="Back">
-	</form>
-</div>
 
 <?php
 if(!($stmt = $mysqli->prepare("INSERT INTO scooter( color, year, model_id, member_id)VALUES(?, ?, ?, ?)"))){
@@ -38,6 +33,12 @@ if(!$stmt->execute()){
 	echo "Added " . $stmt->affected_rows . " new scooter.";
 }
 ?>
+
+<div>
+	<form method="post" action="sfilter.php">
+		<input type="submit" value="Back">
+	</form>
+</div>
 
 </body>
 </html>
