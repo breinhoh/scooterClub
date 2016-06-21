@@ -1,0 +1,66 @@
+header {
+  padding: 20px 0;
+  background: darkred;
+  background-size: cover;
+  color: white;
+}
+
+header .row {
+  align-items: center;
+}
+
+header h1 {
+  font-weight: 700;
+  margin: 0;
+}
+
+header nav {
+  display: flex;
+  justify-content: flex-end;
+}
+
+header a {
+  padding: 0 20px;
+  margin: 0;
+  color: white;
+}
+
+.jumbotron {
+  background-image: url('https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.wallpaperfo.com%2Fthumbnails%2Fdetail%2F20120429%2Fred%2520vintage%2520vespa%2520scooters%25201600x1035%2520wallpaper_www.wallpaperfo.com_46.jpg&f=1');
+  background-size: cover;
+  height: 800px;
+}
+
+table {
+	width: 50%;
+	color: white;
+	text-shadow: black 0.1em 0.1em 0.2em;
+	font-weight: bold;
+	font-size: 120%;
+}
+
+#forms {
+	padding: 20px 10px;
+	background: darkred;
+	background-size: cover;
+	color: white;
+}
+
+legend {
+	color: white;
+
+}
+
+input[type="submit"] { 
+	color: black; 
+}
+
+#textIn {
+	color: black;
+
+}
+
+#txtHint {
+	display:inline;
+
+}
